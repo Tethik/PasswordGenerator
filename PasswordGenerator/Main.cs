@@ -15,17 +15,19 @@ namespace PasswordGenerator
         public Main()
         {
             InitializeComponent();
+            numericLength.Value = Properties.Settings.Default.Length;
         }
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            textboxPassword.Text = Password.GeneratePassword((int) numericLength.Value); 
+            textboxPassword.Text = Password.GeneratePassword((int) numericLength.Value);
+            Properties.Settings.Default.Length = (short) numericLength.Value;
+            Properties.Settings.Default.Save();
         }
 
         private void buttonCopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(textboxPassword.Text);
-
         }
     }
 }
