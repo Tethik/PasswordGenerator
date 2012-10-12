@@ -27,7 +27,8 @@ namespace PasswordGenerator
 
         private void buttonCopy_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textboxPassword.Text);
+            if(textboxPassword.Text.Length > 0)
+                Clipboard.SetText(textboxPassword.Text);
         }
     }
 }
