@@ -34,5 +34,41 @@ namespace PasswordGenerator.Properties {
                 this["Length"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Dictionary {
+            get {
+                return ((string)(this["Dictionary"]));
+            }
+            set {
+                this["Dictionary"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public short DictionaryLength {
+            get {
+                return ((short)(this["DictionaryLength"]));
+            }
+            set {
+                this["DictionaryLength"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InDictionaryMode {
+            get {
+                return ((bool)(this["InDictionaryMode"]));
+            }
+            set {
+                this["InDictionaryMode"] = value;
+            }
+        }
     }
 }

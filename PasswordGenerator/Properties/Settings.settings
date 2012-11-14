@@ -5,5 +5,14 @@
     <Setting Name="Length" Type="System.Int16" Scope="User">
       <Value Profile="(Default)">8</Value>
     </Setting>
+    <Setting Name="Dictionary" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DictionaryLength" Type="System.Int16" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="InDictionaryMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
