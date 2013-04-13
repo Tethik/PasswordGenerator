@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PasswordGenerator.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Length" Type="System.Int16" Scope="User">
+    <Setting Name="AsciiLength" Type="System.Int16" Scope="User">
       <Value Profile="(Default)">8</Value>
     </Setting>
     <Setting Name="Dictionary" Type="System.String" Scope="User">
@@ -11,8 +11,11 @@
     <Setting Name="DictionaryLength" Type="System.Int16" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="InDictionaryMode" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="Mode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
+    </Setting>
+    <Setting Name="HexLength" Type="System.Int16" Scope="User">
+      <Value Profile="(Default)">8</Value>
     </Setting>
   </Settings>
 </SettingsFile>

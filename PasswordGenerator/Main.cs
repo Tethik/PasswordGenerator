@@ -16,44 +16,55 @@ namespace PasswordGenerator
         public Main()
         {
             InitializeComponent();
-
-            checkBoxDictionary.Checked = Properties.Settings.Default.InDictionaryMode;
+            InitializeModeComboBox();
+            
             refreshNumericLength();
         }
 
-        private void refreshNumericLength()
-        {            
-            if (!checkBoxDictionary.Checked)            
-                numericLength.Value = Properties.Settings.Default.Length;
-            else
-                numericLength.Value = Properties.Settings.Default.DictionaryLength;
+        private void InitializeModeComboBox()
+        {                     
+            comboBoxMode.DataSource = Enum.GetValues(typeof(GenerationType));
+            
+            if (!Enum.IsDefined(typeof(GenerationType), Properties.Settings.Default.Mode))
+                Properties.Settings.Default.Mode = GenerationType.Ascii.ToString();
+
+            comboBoxMode.SelectedItem = Enum.Parse(typeof(GenerationType), Properties.Settings.Default.Mode);                                
         }
 
-        private void buttonGenerate_Click(object sender, EventArgs e)
+        private IPasswordGenerator getGenerator() {
+            GenerationType mode = (GenerationType)comboBoxMode.SelectedItem;
+            switch (mode)
+            {
+                case GenerationType.Ascii:
+                    return new Generators.AsciiGenerator();                    
+                case GenerationType.Dictionary:
+                    return new Generators.DictionaryGenerator();                    
+                case GenerationType.Hex:
+                    return new Generators.HexGenerator();                    
+                default:
+                    throw new ArgumentException("Invalid mode set!");
+            } 
+        }
+
+        private void refreshNumericLength()
         {
-            
-            if (checkBoxDictionary.Checked)
+            numericLength.Value = getGenerator().getCachedLength();         
+        }
+
+
+        private void buttonGenerate_Click(object sender, EventArgs e)
+        {            
+            try
             {
-                try
-                {
-                    textboxPassword.Text = Password.GenerateDictionaryPassword(Properties.Settings.Default.Dictionary, (int)numericLength.Value);
-                    Properties.Settings.Default.DictionaryLength = (short)numericLength.Value;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Dictionary file could not be opened!");
-                    checkBoxDictionary.Checked = false;
-                    Properties.Settings.Default.InDictionaryMode = checkBoxDictionary.Checked;
-                    Properties.Settings.Default.Save();
-                    return;
-                }
+                Properties.Settings.Default.Mode = comboBoxMode.SelectedValue.ToString();
+                textboxPassword.Text = getGenerator().generatePassword((short)numericLength.Value);                
+                Properties.Settings.Default.Save();
             }
-            else
+            catch (Exception ex)
             {
-                textboxPassword.Text = Password.GeneratePassword((int)numericLength.Value);
-                Properties.Settings.Default.Length = (short)numericLength.Value;
-            }            
-            Properties.Settings.Default.Save();
+                MessageBox.Show(ex.Message);                
+            }
+            
         }
 
         private void buttonCopy_Click(object sender, EventArgs e)
@@ -66,31 +77,12 @@ namespace PasswordGenerator
         {
             SettingsBox window = new SettingsBox();
             window.ShowDialog(this);
-            checkBoxDictionary_CheckedChanged(this, null);
+            //comboBoxMode_SelectedIndexChanged(this, null);
         }
 
-        private void checkBoxDictionary_CheckedChanged(object sender, EventArgs e)
+        private void comboBoxMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             refreshNumericLength();
-            Properties.Settings.Default.InDictionaryMode = checkBoxDictionary.Checked;
-            Properties.Settings.Default.Save();
-            if (!checkBoxDictionary.Checked)           
-                return;
-            
-            // See if dictionary is set.
-            if (Properties.Settings.Default.Dictionary == null || Properties.Settings.Default.Dictionary == "")
-            {
-                MessageBox.Show("Dictionary not set. You can set the dictionary under Settings");
-                checkBoxDictionary.Checked = false;
-                return;
-            }
-
-            if (!File.Exists(Properties.Settings.Default.Dictionary))
-            {
-                MessageBox.Show("Dictionary does not exist!");
-                checkBoxDictionary.Checked = false;
-                return;
-            }            
         }
     }
 }

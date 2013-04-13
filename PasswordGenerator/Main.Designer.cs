@@ -35,9 +35,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numericLength = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxDictionary = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comboBoxMode = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericLength)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -101,17 +101,6 @@
             0,
             0});
             // 
-            // checkBoxDictionary
-            // 
-            this.checkBoxDictionary.AutoSize = true;
-            this.checkBoxDictionary.Location = new System.Drawing.Point(15, 75);
-            this.checkBoxDictionary.Name = "checkBoxDictionary";
-            this.checkBoxDictionary.Size = new System.Drawing.Size(103, 17);
-            this.checkBoxDictionary.TabIndex = 7;
-            this.checkBoxDictionary.Text = "Dictionary Mode";
-            this.checkBoxDictionary.UseVisualStyleBackColor = true;
-            this.checkBoxDictionary.CheckedChanged += new System.EventHandler(this.checkBoxDictionary_CheckedChanged);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -129,12 +118,22 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
+            // comboBoxMode
+            // 
+            this.comboBoxMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMode.FormattingEnabled = true;
+            this.comboBoxMode.Location = new System.Drawing.Point(15, 75);
+            this.comboBoxMode.Name = "comboBoxMode";
+            this.comboBoxMode.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxMode.TabIndex = 9;
+            this.comboBoxMode.SelectedIndexChanged += new System.EventHandler(this.comboBoxMode_SelectedIndexChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 116);
-            this.Controls.Add(this.checkBoxDictionary);
+            this.Controls.Add(this.comboBoxMode);
             this.Controls.Add(this.numericLength);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -164,9 +163,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericLength;
-        private System.Windows.Forms.CheckBox checkBoxDictionary;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboBoxMode;
     }
 }
 

@@ -89,5 +89,19 @@ namespace PasswordLib
             return builder.ToString();            
         }
 
+        public static string GenerateHexadecimalPassword(int length)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            RNGCryptoServiceProvider RandGenerator = new RNGCryptoServiceProvider();
+            byte[] data = new byte[length];
+            RandGenerator.GetBytes(data);
+
+            foreach (byte d in data)
+                builder.Append(d.ToString("X"));
+
+            return builder.ToString();
+        }
+
     }
 }
