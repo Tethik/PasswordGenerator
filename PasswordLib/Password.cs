@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
+using System.Numerics;
 
 namespace PasswordLib
 {
@@ -32,13 +33,17 @@ namespace PasswordLib
             StringBuilder builder = new StringBuilder();
             RNGCryptoServiceProvider RandGenerator = new RNGCryptoServiceProvider();
 
-            byte[] data = new byte[length];
-
+            byte[] data = new byte[length + 1]; // +1 because of http://stackoverflow.com/questions/5649190/byte-to-unsigned-biginteger
             RandGenerator.GetBytes(data);
+            data[length] = 0; // clear sign = make positive number
+            var dataNum = new BigInteger(data); // from lowest-order byte [0] to highest-order byte [length+1]
 
             while (length-- > 0)
             {
-                builder.Append(AllowedCharacters[data[length] % AllowedCharacters.Length]);
+                uint characterIndex = (uint)(dataNum % AllowedCharacters.Length);
+                dataNum = dataNum / AllowedCharacters.Length;
+
+                builder.Append(AllowedCharacters[characterIndex]);
             }
 
             return builder.ToString();
