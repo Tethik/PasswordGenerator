@@ -23,16 +23,16 @@ namespace PasswordGenerator
 
         private void InitializeModeComboBox()
         {                     
-            comboBoxMode.DataSource = Enum.GetValues(typeof(GenerationType));
+            cmbMode.DataSource = Enum.GetValues(typeof(GenerationType));
             
             if (!Enum.IsDefined(typeof(GenerationType), Properties.Settings.Default.Mode))
                 Properties.Settings.Default.Mode = GenerationType.Ascii.ToString();
 
-            comboBoxMode.SelectedItem = Enum.Parse(typeof(GenerationType), Properties.Settings.Default.Mode);                                
+            cmbMode.SelectedItem = Enum.Parse(typeof(GenerationType), Properties.Settings.Default.Mode);                                
         }
 
         private IPasswordGenerator getGenerator() {
-            GenerationType mode = (GenerationType)comboBoxMode.SelectedItem;
+            GenerationType mode = (GenerationType)cmbMode.SelectedItem;
             switch (mode)
             {
                 case GenerationType.Ascii:
@@ -48,7 +48,7 @@ namespace PasswordGenerator
 
         private void refreshNumericLength()
         {
-            numericLength.Value = getGenerator().getCachedLength();         
+            numLength.Value = getGenerator().getCachedLength();         
         }
 
 
@@ -56,8 +56,8 @@ namespace PasswordGenerator
         {            
             try
             {
-                Properties.Settings.Default.Mode = comboBoxMode.SelectedValue.ToString();
-                textboxPassword.Text = getGenerator().generatePassword((short)numericLength.Value);                
+                Properties.Settings.Default.Mode = cmbMode.SelectedValue.ToString();
+                txtPassword.Text = getGenerator().generatePassword((short)numLength.Value);                
                 Properties.Settings.Default.Save();
             }
             catch (Exception ex)
@@ -69,8 +69,8 @@ namespace PasswordGenerator
 
         private void buttonCopy_Click(object sender, EventArgs e)
         {
-            if(textboxPassword.Text.Length > 0)
-                Clipboard.SetText(textboxPassword.Text);
+            if(!string.IsNullOrEmpty(txtPassword.Text))
+                Clipboard.SetText(txtPassword.Text);
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
